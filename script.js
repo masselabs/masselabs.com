@@ -121,25 +121,26 @@
 
   /* ─── ZK Formula afterimages ─── */
   function spawnFormulas(x, y) {
-    const count = 4 + Math.floor(Math.random() * 3); // 4-6 formulas
+    const count = 3 + Math.floor(Math.random() * 3); // 3-5 formulas
     const used = new Set();
     for (let i = 0; i < count; i++) {
       let idx;
       do { idx = Math.floor(Math.random() * ZK_FORMULAS.length); } while (used.has(idx) && used.size < ZK_FORMULAS.length);
       used.add(idx);
 
-      const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.8;
-      const speed = 0.4 + Math.random() * 0.8;
+      const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.5;
+      const speed = 0.8 + Math.random() * 1.0;
+      const startDist = 60 + Math.random() * 60; // start 60-120px away from click
       formulas.push({
         text: ZK_FORMULAS[idx],
-        x: x + (Math.random() - 0.5) * 30,
-        y: y + (Math.random() - 0.5) * 30,
+        x: x + Math.cos(angle) * startDist,
+        y: y + Math.sin(angle) * startDist,
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
         life: 1,
-        decay: 0.006 + Math.random() * 0.004, // each fades at different rate
-        size: 11 + Math.floor(Math.random() * 5),
-        rotation: (Math.random() - 0.5) * 0.3,
+        decay: 0.006 + Math.random() * 0.004,
+        size: 11 + Math.floor(Math.random() * 4),
+        rotation: (Math.random() - 0.5) * 0.2,
       });
     }
   }
