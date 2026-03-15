@@ -44,6 +44,31 @@
   const trails = [];
   let activeTrail = null;
   const sparks = [];
+  const formulas = [];  // ZK formula afterimages
+
+  // Real ZK/crypto formulas
+  const ZK_FORMULAS = [
+    'e(A, B) = e(α, β) · e(L, γ) · e(C, δ)',
+    'π = (A, B, C) ∈ G₁ × G₂ × G₁',
+    'P(x) · H(x) = T(x)',
+    'Com(m, r) = gᵐ · hʳ',
+    'Σ aᵢ · wᵢ(x) · Σ bᵢ · wᵢ(x) = Σ cᵢ · wᵢ(x)',
+    'V(vk, x, π) → {0, 1}',
+    'zk-SNARK: ∃w : C(x, w) = 1',
+    'H : {0,1}* → Fₚ',
+    '∀x ∈ Fₚ : P(x) ≡ 0',
+    'g^a · g^b = g^(a+b) mod p',
+    'KDF(s) → (pk, sk)',
+    'Enc(pk, m) → c',
+    'Verify(vk, π, x) = true',
+    'R1CS: A · s ∘ B · s = C · s',
+    'QAP: {Aᵢ(x), Bᵢ(x), Cᵢ(x)}',
+    'τ ← Random(Fₚ)',
+    'δ = H(tx || nonce || σ)',
+    'Merkle: root = H(H(a‖b) ‖ H(c‖d))',
+    'Fiat-Shamir: c = H(g, y, t)',
+    'Pedersen: C = g^v · h^r',
+  ];
 
   function initBall() {
     ball.x = W * 0.15;
@@ -75,6 +100,7 @@
     trails.push(activeTrail);
 
     createRipple(tx, ty);
+    spawnFormulas(tx, ty);
     for (let i = 0; i < 6; i++) {
       const a = Math.random() * Math.PI * 2;
       sparks.push({ x: tx, y: ty, vx: Math.cos(a) * (1 + Math.random() * 2.5), vy: Math.sin(a) * (1 + Math.random() * 2.5), life: 1, color: rndColor() });
@@ -91,6 +117,68 @@
     el.style.cssText = `left:${x-40}px;top:${y-40}px;width:80px;height:80px;border:1.5px solid rgba(255,255,255,0.25)`;
     document.getElementById('ripples').appendChild(el);
     setTimeout(() => el.remove(), 800);
+  }
+
+  /* ─── ZK Formula afterimages ─── */
+  function spawnFormulas(x, y) {
+    const count = 4 + Math.floor(Math.random() * 3); // 4-6 formulas
+    const used = new Set();
+    for (let i = 0; i < count; i++) {
+      let idx;
+      do { idx = Math.floor(Math.random() * ZK_FORMULAS.length); } while (used.has(idx) && used.size < ZK_FORMULAS.length);
+      used.add(idx);
+
+      const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.8;
+      const speed = 0.4 + Math.random() * 0.8;
+      formulas.push({
+        text: ZK_FORMULAS[idx],
+        x: x + (Math.random() - 0.5) * 30,
+        y: y + (Math.random() - 0.5) * 30,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 1,
+        decay: 0.006 + Math.random() * 0.004, // each fades at different rate
+        size: 11 + Math.floor(Math.random() * 5),
+        rotation: (Math.random() - 0.5) * 0.3,
+      });
+    }
+  }
+
+  function updateFormulas() {
+    for (let i = formulas.length - 1; i >= 0; i--) {
+      const f = formulas[i];
+      f.x += f.vx;
+      f.y += f.vy;
+      f.vx *= 0.995; // slow drift
+      f.vy *= 0.995;
+      f.life -= f.decay;
+      if (f.life <= 0) formulas.splice(i, 1);
+    }
+  }
+
+  function drawFormulas() {
+    for (const f of formulas) {
+      ctx.save();
+      ctx.translate(f.x, f.y);
+      ctx.rotate(f.rotation);
+
+      const alpha = f.life * 0.4;
+      // Glow
+      ctx.font = `${f.size}px 'Courier New', monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowColor = `rgba(245,166,35,${alpha * 0.5})`;
+      ctx.shadowBlur = 15;
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.fillText(f.text, 0, 0);
+
+      // Brighter pass without shadow for sharpness
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = `rgba(255,255,255,${alpha * 0.3})`;
+      ctx.fillText(f.text, 0, 0);
+
+      ctx.restore();
+    }
   }
 
   /* ─── Update ─── */
@@ -339,8 +427,10 @@
   function frame() {
     updateBall();
     updateSparks();
+    updateFormulas();
     drawTable();
     drawTrails();
+    drawFormulas();
     drawSparks();
     drawBall();
     requestAnimationFrame(frame);
