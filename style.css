@@ -205,10 +205,67 @@ html, body {
 
 /* ═══ Responsive ═══ */
 @media (max-width: 768px) {
-  #center h1 { font-size: 40px; }
-  .logo-masse, .logo-labs { font-size: 24px; }
+  /* Switch UI from absolute to flex column so nothing overlaps */
+  #ui {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+  }
+
+  #logo {
+    position: relative;
+    top: auto; left: auto;
+    transform: none;
+    justify-content: center;
+  }
+
   .logo-mark svg { width: 32px; height: 32px; }
-  #logo { top: 20px; }
-  #works { flex-direction: column; bottom: 16px; gap: 8px; }
-  .work-item { min-width: unset; padding: 10px 16px; }
+  .logo-masse, .logo-labs { font-size: 22px; }
+
+  #center {
+    position: relative;
+    inset: auto;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  #center h1 { font-size: 36px; }
+
+  #works-wrapper {
+    position: relative;
+    bottom: auto; left: auto;
+    transform: none;
+    gap: 10px;
+  }
+
+  .works-tagline { font-size: 11px; }
+
+  #works {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .work-item {
+    min-width: unset;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  .work-icon, .gh-icon-wrap { width: 36px; height: 36px; }
+  .gh-icon-wrap svg { width: 20px; height: 20px; }
+  .work-name { font-size: 14px; }
+  .work-desc { font-size: 10px; }
+}
+
+@media (max-width: 480px) {
+  #center h1 { font-size: 28px; }
+  .logo-masse, .logo-labs { font-size: 18px; }
+  .logo-mark svg { width: 26px; height: 26px; }
+  #logo { gap: 8px; }
+  .works-tagline { font-size: 10px; }
 }
