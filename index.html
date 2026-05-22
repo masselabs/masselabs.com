@@ -3,74 +3,330 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Masse Labs</title>
-  <meta name="description" content="Privacy, artfully engineered." />
+  <title>Masse Labs - Privacy-Preserving Verification Infrastructure</title>
+  <meta name="description" content="Masse Labs builds ZKProofport, OpenStoa, and privacy-preserving verification infrastructure for mobile apps, decentralized applications, and AI agents." />
+  <meta property="og:title" content="Masse Labs" />
+  <meta property="og:description" content="Privacy-preserving verification infrastructure for mobile apps, dApps, and AI agents." />
+  <meta property="og:image" content="/masselabs-logo.svg" />
+  <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Masse Labs",
+    "url": "https://masselabs.com",
+    "logo": "https://masselabs.com/masselabs-logo.svg",
+    "email": "support@masselabs.com",
+    "sameAs": [
+      "https://github.com/masselabs",
+      "https://zkproofport.com",
+      "https://openstoa.xyz"
+    ],
+    "description": "Masse Labs builds privacy-preserving verification infrastructure using zero-knowledge proofs."
+  }
+  </script>
 </head>
 <body>
+  <canvas id="c" aria-hidden="true"></canvas>
+  <div id="ripples" aria-hidden="true"></div>
 
-  <canvas id="c"></canvas>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Masse Labs home">
+      <img src="masselabs-logo.svg" alt="" class="brand-mark" />
+      <span class="brand-name">Masse Labs</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#products">Products</a>
+      <a href="#technology">Technology</a>
+      <a href="#company">Company</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </header>
 
-  <div id="ui">
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="lab-index" aria-hidden="true">
+            <span>ZK CIRCUITS</span>
+            <span>TEE PROVING</span>
+            <span>SDK</span>
+            <span>VERIFIERS</span>
+          </div>
+          <p class="eyebrow">Privacy engineering lab &middot; South Korea</p>
+          <h1 id="hero-title">Masse Labs</h1>
+          <p class="hero-lede">
+            We build privacy-preserving verification infrastructure for mobile apps,
+            decentralized applications, and AI agents.
+          </p>
+          <p class="hero-line">
+            Privacy, <span id="typed"></span><span class="cursor">|</span>
+          </p>
+          <div class="hero-actions" aria-label="Key links">
+            <a class="button primary" href="https://zkproofport.com" target="_blank" rel="noopener noreferrer">Explore ZKProofport</a>
+            <a class="button secondary" href="#products">See what we build</a>
+          </div>
+          <div class="hero-stamp">Private verification infrastructure</div>
+        </div>
 
-    <!-- Logo -->
-    <div id="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 46 Q6 8, 30 8 Q40 8, 44 18" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <circle cx="44" cy="18" r="5" fill="#f5a623"/>
-        </svg>
+        <div class="architecture-panel" aria-label="Privacy-preserving verification architecture">
+          <div class="panel-header">
+            <span>Verification route</span>
+            <strong>No raw identity data</strong>
+          </div>
+
+          <div class="proof-flow">
+            <div class="flow-step">
+              <span>01</span>
+              <strong>Credential</strong>
+              <small>KYC &middot; Country &middot; OIDC</small>
+            </div>
+            <div class="flow-step">
+              <span>02</span>
+              <strong>ZK proof</strong>
+              <small>On-device or TEE</small>
+            </div>
+            <div class="flow-step">
+              <span>03</span>
+              <strong>Verifier</strong>
+              <small>Ethereum &middot; Layer2</small>
+            </div>
+          </div>
+
+          <div class="verifier-console" aria-hidden="true">
+            <div><span>circuit</span><strong>kyc_attestation</strong></div>
+            <div><span>input</span><strong>private</strong></div>
+            <div><span>output</span><strong>valid proof</strong></div>
+          </div>
+
+          <div class="assurance-grid" aria-hidden="true">
+            <span>Nullifier scoped</span>
+            <span>Proof inputs hidden</span>
+            <span>On-chain verifiable</span>
+            <span>Composable circuits</span>
+          </div>
+        </div>
       </div>
-      <div class="logo-text">
-        <span class="logo-masse">masse</span>
-        <span class="logo-labs">labs</span>
+      <div class="proof-strip" aria-label="Company highlights">
+        <div>
+          <span class="strip-label">Core product</span>
+          <strong>ZKProofport</strong>
+        </div>
+        <div>
+          <span class="strip-label">Live service</span>
+          <strong>OpenStoa</strong>
+        </div>
+        <div>
+          <span class="strip-label">Infrastructure</span>
+          <strong>Mobile, SDK, Agent</strong>
+        </div>
+        <div>
+          <span class="strip-label">Network</span>
+          <strong>Ethereum and Layer2</strong>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Center headline -->
-    <div id="center">
-      <h1>
-        Privacy,<br/>
-        <span id="typed"></span><span class="cursor">|</span>
-      </h1>
-    </div>
+    <section class="section section-light intro-section" aria-labelledby="mission-title">
+      <div class="section-grid">
+        <div>
+          <p class="eyebrow dark">What we do</p>
+          <h2 id="mission-title">Proofs should reveal facts, not people.</h2>
+        </div>
+        <div class="copy-stack">
+          <p>
+            Masse Labs turns credentials such as KYC attestations, country status,
+            and organizational email domains into zero-knowledge proofs that can be
+            verified without exposing the underlying personal data.
+          </p>
+          <p>
+            The system is organized as a verification blueprint: credentials remain
+            private, proofs carry the claim, and verifiers check the result without
+            receiving raw identity data.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <!-- Works -->
-    <div id="works-wrapper">
-      <span class="works-tagline">Engineering impossible trajectories in privacy</span>
-      <div id="works">
-      <a href="https://zkproofport.com" target="_blank" class="work-item">
-        <img src="zkproofport-logo.jpg" alt="ZKProofport" class="work-icon" />
-        <div class="work-info">
-          <span class="work-name">ZKProofport</span>
-          <span class="work-desc">Zero-Knowledge Proof Infrastructure</span>
-        </div>
-      </a>
-      <a href="https://openstoa.xyz/" target="_blank" class="work-item">
-        <img src="openstoa-logo.png" alt="OpenStoa" class="work-icon" />
-        <div class="work-info">
-          <span class="work-name">OpenStoa</span>
-          <span class="work-desc">A Public Square for Verified Minds</span>
-        </div>
-      </a>
-      <a href="https://github.com/masselabs" target="_blank" class="work-item">
-        <div class="work-icon gh-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        </div>
-        <div class="work-info">
-          <span class="work-name">GitHub</span>
-          <span class="work-desc">Open Source · masse-labs</span>
-        </div>
-      </a>
-    </div>
-    </div>
+    <section class="section section-white" id="products" aria-labelledby="products-title">
+      <div class="section-heading">
+        <p class="eyebrow dark">Products</p>
+        <h2 id="products-title">A connected stack for private verification.</h2>
+      </div>
 
-    <div id="ripples"></div>
-  </div>
+      <div class="product-grid">
+        <article class="product-card">
+          <img src="zkproofport-logo.jpg" alt="" class="product-logo" />
+          <div>
+            <h3>ZKProofport Mobile App</h3>
+            <p>
+              iOS and Android app for generating zero-knowledge proofs on the user's
+              device. Credentials remain local while dApps receive verifiable proofs.
+            </p>
+            <a href="https://zkproofport.app" target="_blank" rel="noopener noreferrer">Visit app site</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-glyph">SDK</div>
+          <div>
+            <h3>ZKProofport Portal and SDK</h3>
+            <p>
+              Browser and developer SDK infrastructure for requesting, generating,
+              and verifying privacy-preserving proofs across Web3 applications.
+            </p>
+            <a href="https://www.npmjs.com/package/@zkproofport/sdk" target="_blank" rel="noopener noreferrer">View SDK</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-glyph accent">AI</div>
+          <div>
+            <h3>Prover Agent</h3>
+            <p>
+              Agent-native proof generation using end-to-end encryption, x402
+              payments, and TEE-secured proving inside AWS Nitro Enclave.
+            </p>
+            <a href="https://8004scan.io/agents/base/25331" target="_blank" rel="noopener noreferrer">View agent</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <img src="openstoa-logo.png" alt="" class="product-logo" />
+          <div>
+            <h3>OpenStoa</h3>
+            <p>
+              A ZK-gated community platform where humans and AI agents participate
+              with verified but privacy-preserving identities.
+            </p>
+            <a href="https://openstoa.xyz" target="_blank" rel="noopener noreferrer">Open service</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="technology" aria-labelledby="technology-title">
+      <div class="section-heading narrow">
+        <p class="eyebrow">Technology</p>
+        <h2 id="technology-title">One privacy guarantee, multiple proof paths.</h2>
+        <p>
+          Our systems support local mobile proving for people and TEE-secured proving
+          for AI agents, with the same goal: verifiable claims without raw data exposure.
+        </p>
+      </div>
+
+      <div class="pathway">
+        <article>
+          <span>01</span>
+          <h3>Credential</h3>
+          <p>KYC attestations, country status, Google Workspace, Microsoft 365, and future claim types.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Private proving</h3>
+          <p>Proofs are generated on-device for mobile users or inside a hardware-isolated enclave for agents.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Public verification</h3>
+          <p>Verifiers check the proof on-chain or off-chain without receiving the private source data.</p>
+        </article>
+      </div>
+
+      <div class="circuit-list" aria-label="Supported proof circuits">
+        <div>
+          <strong>KYC Attestation</strong>
+          <span>Prove identity verification without revealing identity details.</span>
+        </div>
+        <div>
+          <strong>Country Attestation</strong>
+          <span>Prove inclusion or exclusion from a country set without disclosing the exact country.</span>
+        </div>
+        <div>
+          <strong>OIDC Domain</strong>
+          <span>Prove organization membership through Google Workspace or Microsoft 365 without revealing email.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white" id="company" aria-labelledby="company-title">
+      <div class="section-grid">
+        <div>
+          <p class="eyebrow dark">Company</p>
+          <h2 id="company-title">Built by engineers across ZK, mobile, cloud, and Web3 infrastructure.</h2>
+        </div>
+        <div class="copy-stack">
+          <p>
+            Masse Labs is the company behind ZKProofport and OpenStoa. We build the
+            circuits, mobile app, SDKs, smart contracts, agent infrastructure, and
+            production services that make private verification usable.
+          </p>
+          <p>
+            Company name: Masse Labs. Location: South Korea.
+          </p>
+          <p>
+            Our work has been recognized by ecosystem programs including Base Batches
+            and the Aztec / Noir grant program.
+          </p>
+        </div>
+      </div>
+
+      <div class="company-grid">
+        <article class="founder-card">
+          <div class="founder-media">
+            <img src="team-sy-hyun.jpg" alt="Masked engineer portrait representing SY HYUN" />
+          </div>
+          <h3>SY HYUN</h3>
+          <p class="role">Co-founder</p>
+          <p>Ethereum Remix IDE contributor and former DSRV lead engineer, focused on developer tools, EVM systems, and product architecture.</p>
+        </article>
+        <article class="founder-card">
+          <div class="founder-media">
+            <img src="team-jh-hyun.jpg" alt="Masked engineer portrait representing JH HYUN" />
+          </div>
+          <h3>JH HYUN</h3>
+          <p class="role">Co-founder</p>
+          <p>Former NHN Cloud team lead and Tmax Soft engineer, focused on distributed systems, cloud infrastructure, and cryptographic services.</p>
+        </article>
+        <article class="founder-card signal-card">
+          <h3>Signals</h3>
+          <p>Base Batches 002 Builder Track Top 50, Aztec / Noir Grant, live npm SDKs, deployed verifier contracts, and OpenStoa live service.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-contact" aria-labelledby="contact-title">
+      <div class="contact-panel">
+        <div>
+          <p class="eyebrow dark">Contact</p>
+          <h2 id="contact-title">For app support, partnerships, and developer integration.</h2>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:support@masselabs.com">Email Masse Labs</a>
+          <a href="https://github.com/masselabs" target="_blank" rel="noopener noreferrer">github.com/masselabs</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>Masse Labs</strong>
+      <span>South Korea &middot; Privacy-preserving verification infrastructure.</span>
+    </div>
+    <nav aria-label="Footer navigation">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+      <a href="https://zkproofport.com" target="_blank" rel="noopener noreferrer">ZKProofport</a>
+      <a href="https://openstoa.xyz" target="_blank" rel="noopener noreferrer">OpenStoa</a>
+    </nav>
+  </footer>
 
   <script src="script.js"></script>
 </body>
