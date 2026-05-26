@@ -1018,14 +1018,35 @@ main,
 
 .site-footer {
   display: flex;
-  justify-content: space-between;
-  gap: 28px;
-  padding: 30px 40px;
+  flex-direction: column;
+  gap: 20px;
+  padding: 36px 40px;
   color: rgba(255, 255, 255, 0.72);
   background: #071625;
 }
 
-.site-footer div,
+.site-footer .footer-company {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.site-footer .footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 28px;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.site-footer .footer-legal p {
+  margin: 0;
+}
+
 .site-footer nav {
   display: flex;
   flex-wrap: wrap;
