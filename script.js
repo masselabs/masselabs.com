@@ -10,8 +10,17 @@
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
+  if (!ctx) return;
   const ripples = document.getElementById('ripples');
-  let dpr = window.devicePixelRatio || 1;
+  const background = document.createElement('canvas');
+  const backgroundCtx = background.getContext('2d');
+  if (!backgroundCtx) return;
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let heroVisible = true;
+  let animationFrame = 0;
+  let typeTimer = 0;
+  let lastFrameTime = 0;
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
   let W = 0;
   let H = 0;
 
@@ -34,13 +43,21 @@
   };
 
   function resize() {
-    dpr = window.devicePixelRatio || 1;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.width = Math.floor(W * dpr);
     canvas.height = Math.floor(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     if (!ball.x || !ball.y) initBall();
+    ball.x = Math.max(RAIL + R, Math.min(ball.x, W - RAIL - R));
+    ball.y = Math.max(RAIL + R, Math.min(ball.y, H - RAIL - R));
+    background.width = canvas.width;
+    background.height = canvas.height;
+    backgroundCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // The felt texture and rails are static: paint them only on resize.
+    drawTable(backgroundCtx);
+    drawScene();
   }
 
   function initBall() {
@@ -67,6 +84,7 @@
   }
 
   document.addEventListener('click', (event) => {
+    if (!canAnimate() || event.target.closest('a, button, input, textarea, select')) return;
     const dx = event.clientX - ball.x;
     const dy = event.clientY - ball.y;
     const dist = Math.hypot(dx, dy);
@@ -138,7 +156,7 @@
     }
   }
 
-  function drawTable() {
+  function drawTable(ctx) {
     const g = ctx.createRadialGradient(W * 0.45, H * 0.4, 0, W / 2, H / 2, Math.max(W, H) * 0.75);
     g.addColorStop(0, '#1a4a7a');
     g.addColorStop(0.35, '#153f6a');
@@ -277,61 +295,98 @@
     ctx.restore();
   }
 
-  function frame() {
-    updateBall();
-    drawTable();
+  function drawScene() {
+    ctx.drawImage(background, 0, 0, W, H);
     drawTrails();
     drawBall();
-    requestAnimationFrame(frame);
   }
 
-  resize();
-  initBall();
-  window.addEventListener('resize', resize);
-  requestAnimationFrame(frame);
+  function canAnimate() {
+    return !motionPreference.matches && !document.hidden && heroVisible;
+  }
+
+  function frame(timestamp) {
+    animationFrame = 0;
+    if (!canAnimate()) return;
+    // Keep interaction fluid, but avoid full-rate redraws for the idle pulse.
+    const interval = ball.moving || trails.length ? 1000 / 60 : 1000 / 15;
+    if (timestamp - lastFrameTime >= interval) {
+      updateBall();
+      drawScene();
+      lastFrameTime = timestamp;
+    }
+    animationFrame = requestAnimationFrame(frame);
+  }
 
   const phrases = [
-    'proven, never exposed.',
-    'verified without custody.',
-    'private by architecture.',
-    'for mobile, dApps, and agents.',
-    'by design, not by trust.',
+    'Built for people.',
+    'Built for AI agents.',
+    'Built for integration.',
   ];
   const typed = document.getElementById('typed');
   let phraseIndex = 0;
-  let charIndex = 0;
-  let deleting = false;
-  let pause = 0;
+  let charIndex = phrases[0].length;
+  let deleting = true;
 
-  function typeLoop() {
-    if (!typed) return;
-    if (pause > 0) {
-      pause--;
-      setTimeout(typeLoop, 30);
-      return;
-    }
-
-    const phrase = phrases[phraseIndex];
-    if (!deleting) {
-      charIndex++;
-      typed.textContent = phrase.slice(0, charIndex);
-      if (charIndex >= phrase.length) {
-        pause = 100;
-        deleting = true;
-      }
-      setTimeout(typeLoop, 45 + Math.random() * 40);
-      return;
-    }
-
-    charIndex--;
-    typed.textContent = phrase.slice(0, charIndex);
-    if (charIndex <= 0) {
-      deleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      pause = 15;
-    }
-    setTimeout(typeLoop, 22);
+  function scheduleType(delay) {
+    if (canAnimate() && typed) typeTimer = window.setTimeout(typeLoop, delay);
   }
 
-  setTimeout(typeLoop, 1200);
+  function typeLoop() {
+    typeTimer = 0;
+    if (!canAnimate() || !typed) return;
+    const phrase = phrases[phraseIndex];
+    charIndex += deleting ? -1 : 1;
+    typed.textContent = phrase.slice(0, charIndex);
+    if (!deleting && charIndex >= phrase.length) {
+      deleting = true;
+      scheduleType(2600);
+    } else if (deleting && charIndex <= 0) {
+      deleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      scheduleType(350);
+    } else {
+      scheduleType(deleting ? 24 : 60);
+    }
+  }
+
+  function syncMotion() {
+    cancelAnimationFrame(animationFrame);
+    clearTimeout(typeTimer);
+    animationFrame = 0;
+    typeTimer = 0;
+    if (motionPreference.matches) {
+      ball.moving = false;
+      ball.speed = 0;
+      ball.spin = 0;
+      ball.pulse = 0;
+      trails.length = 0;
+      activeTrail = null;
+      if (ripples) ripples.replaceChildren();
+      if (typed) typed.textContent = 'Built for people and AI.';
+      drawScene();
+    } else if (canAnimate()) {
+      lastFrameTime = 0;
+      animationFrame = requestAnimationFrame(frame);
+      if (typed) {
+        typed.textContent = phrases[phraseIndex];
+        charIndex = phrases[phraseIndex].length;
+        deleting = true;
+        scheduleType(2600);
+      }
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('visibilitychange', syncMotion);
+  motionPreference.addEventListener('change', syncMotion);
+  const hero = document.querySelector('.hero');
+  if (hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting;
+      syncMotion();
+    }).observe(hero);
+  }
+  syncMotion();
 })();
