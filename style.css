@@ -1620,3 +1620,11 @@ a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
   .site-nav { gap: 2px; }
   .site-nav a { padding-inline: 5px; }
 }
+
+/* App installation belongs with the ZKProofport product, not the company hero. */
+.product-downloads { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+.product-card .product-downloads > p { margin: 0; font-size: .9rem; font-weight: 600; }
+.store-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.product-card .store-links a { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; margin: 0; padding: 9px 12px; border: 1px solid currentColor; border-radius: 6px; font-size: .85rem; text-decoration: none; }
+.product-card .store-links a:hover { background: rgba(161, 61, 16, .06); }
+.product-card .store-links a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
