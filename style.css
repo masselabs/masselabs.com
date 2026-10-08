@@ -1513,6 +1513,7 @@ main,
 }
 .portfolio-tree a:hover { border-color: var(--gold); }
 .portfolio-tree img { display: block; width: 36px; height: 36px; border-radius: 6px; object-fit: contain; }
+.portfolio-tree .dojang-logo, .product-logo.dojang-logo { background: #fff4ef; padding: 5px; object-fit: contain; }
 .portfolio-tree strong { display: block; font-size: 1.1rem; }
 .portfolio-tree span { grid-column: 1 / -1; display: block; color: rgba(255, 255, 255, 0.72); font-size: 0.9rem; line-height: 1.5; }
 .company-panel-note { padding-top: 6px; font-size: 0.9rem; }
