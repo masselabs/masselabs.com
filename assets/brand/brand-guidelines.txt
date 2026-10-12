@@ -1,0 +1,39 @@
+Masse Labs — Brand kit
+Version: 2026-10-13
+
+Use these assets when referring to Masse Labs. The company name is written
+Masse Labs (two words, capital M and L). These assets identify Masse Labs,
+not the individual ZKProofport, OpenStoa, or Dojang Scan products.
+
+FILES
+primary: navy icon and navy wordmark, for light backgrounds.
+reverse: white and gold symbol and white wordmark, for dark backgrounds.
+stacked: vertical icon and wordmark, for light backgrounds.
+icon: original rounded navy tile, for avatars and square placements.
+symbol-navy / symbol-white: freestanding two-color symbol.
+mono-navy / mono-white: single-color symbol when color is unavailable.
+cover: 1600 x 900 brand cover for presentations and social sharing.
+SVG files scale without loss. PNG logo files have transparent backgrounds;
+the cover has an opaque navy background. White assets require dark backgrounds.
+All wordmark lettering is outlined, so no font installation is required.
+
+COLORS
+Navy: #0F1E36
+Gold: #F5A623
+White: #FFFFFF
+Paper: #F7F9F5
+
+TYPOGRAPHY
+Inter, weight 800 for the wordmark. Inter regular for supporting text.
+Inter is licensed under the SIL Open Font License; see INTER-OFL.txt.
+
+USAGE
+Keep the proportions, curve, and dot intact. Leave clear space of at least
+one gold-dot diameter around the visible logo. Keep the symbol at least
+32 px tall on screen and the horizontal lockup at least 160 px wide.
+Use the reverse version on dark backgrounds. Do not stretch, rotate,
+recolor, add effects, or place on busy backgrounds. Do not imply endorsement
+or affiliation without permission.
+
+Questions: sooyoung.hyun@masselabs.com
+https://masselabs.com/brand.html
