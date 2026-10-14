@@ -3,7 +3,7 @@ Version: 2026-10-13
 
 Use these assets when referring to Masse Labs. The company name is written
 Masse Labs (two words, capital M and L). These assets identify Masse Labs,
-not the individual ZKProofport, OpenStoa, or Dojang Scan products.
+not the individual ZKProofport, OpenStoa, or Dojangscan products.
 
 FILES
 primary: navy icon and navy wordmark, for light backgrounds.
